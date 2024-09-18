@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",  // 启动应用程序的命令
+    "build": "echo 'No build step defined'",  // 替换为您的构建命令，如果没有构建步骤可以不需要
+    "test": "echo \"Error: no test specified\" && exit 1"  // 测试脚本
   },
   "repository": {
     "type": "git",
