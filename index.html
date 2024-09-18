@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e9d8fd;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+        label {
+            margin-top: 20px;
+            display: block;
+        }
+        select, input[type="file"], button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+            margin-top: 20px; /* 增加按钮与上方内容的距离 */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #preview {
+            margin-top: 20px;
+            display: none; /* 默认隐藏预览图 */
+            text-align: center;
+        }
+        #preview img {
+            max-width: 100%; /* 图片自适应宽度 */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Panda Touch IMG Generate</h1> 
+
+    <label for="imageInput">Select YML file</label>
+    <input type="file" id="imageInput" accept=".yml">
+
+    <label for="colorFormat">Language Name</label>
+    <select id="colorFormat"> 
+        <option value="en-GB">English</option>
+        <option value="zh-CN">Chinese</option> 
+        <option value="de">German</option> 
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+        <option value="ru">Russian</option>
+        <option value="ja">Japanese</option>
+        <option value="it">Italian</option>
+    </select>
+
+    <label for="newPandaInput">Select new_panda png file</label>
+    <input type="file" id="newPandaInput" accept="image/png">
+
+    <div id="preview">
+        <h2>预览图片:</h2>
+        <img id="previewImage" alt="PNG 预览">
+    </div>
+
+    <button id="convertButton">Generate</button>
+<div id="output" style="margin-top: 20px;"></div> <!-- 新增展示输出结果的DIV -->
+
+<script>
+    document.getElementById('newPandaInput').addEventListener('change', function() {
+        const file = this.files[0];
+        const preview = document.getElementById('preview');
+        const previewImage = document.getElementById('previewImage');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                preview.style.display = 'block'; // Show preview
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none'; // Hide preview
+        }
+    });
+
+    document.getElementById('convertButton').addEventListener('click', async function() {
+        const files = document.getElementById('imageInput').files;
+        const newPandaFile = document.getElementById('newPandaInput').files;
+        const colorFormat = document.getElementById('colorFormat').value;
+
+        // Check YML file
+        if (files.length === 0) {
+            alert("Please select a YML file first!");
+            return;
+        }
+
+      // Check PNG file
+      if (newPandaFile.length === 0) {
+          alert("Please select a new panda PNG file!");
+          return;
+      }
+
+      const pngFile = newPandaFile[0];
+
+      // Check file type
+      if (pngFile.type !== 'image/png') {
+          alert("The selected file must be in PNG format!");
+          return;
+      }
+
+      // Check PNG file dimensions
+      const img = new Image();
+      img.src = URL.createObjectURL(pngFile);
+
+        console.log("img createObjectURL");
+
+      img.onload = async function() {
+           if (img.width > 280 || img.height > 306) 
+           {
+               alert("The width of the PNG file cannot exceed 280 pixels, and the height cannot exceed 306 pixels!");
+               return;
+           }
+ 
+           //Create FormData for the YML file
+            const formData = new FormData();
+            formData.append('ymlFile', files[0]);
+
+           //Send POST request to /generate
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+              const outputDiv = document.getElementById('output'); // 获取输出的DIV
+                console.log("start post result="+result);
+               if (response.ok) {
+                   outputDiv.innerHTML = `<p>${result.message}</p><p>First two bytes (hex): ${result.bytes}</p>`; // 显示头两个字节
+               } else {
+                   outputDiv.innerHTML = `<p style="color: red;">${result.error}</p>`;
+               }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while uploading the file!');
+            }
+      };
+    });
+</script>
+
+</body>
+</html>
