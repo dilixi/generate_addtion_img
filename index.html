@@ -12,6 +12,41 @@
     <div id="output"></div>
     
     <script>
+       // 将 img_buffer 转换为 Blob 并自动下载
+       function downloadImage(imgBufferBase64, fileName) {
+            // 将 img_bufferBase64 转换为 Blob 对象
+            const binaryString = atob(imgBufferBase64.split(",")[1]);  // 解码 Base64
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            const blob = new Blob([bytes], { type: 'application/octet-stream' });
+
+            // 创建一个隐藏的下载链接并点击它
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        // 将 ArrayBuffer 数据下载为文件
+        function downloadImageFromArrayBuffer(arrayBuffer, fileName) {
+            const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
+
+            // 创建一个隐藏的下载链接并点击它
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
         document.getElementById('submit').addEventListener('click', async () => {
             const ymlFileInput = document.getElementById('ymlFile');
             const pngFileInput = document.getElementById('pngFile');
@@ -43,22 +78,17 @@
                     pngData: pngData
                 })
             });
-            const result = await response.json();
             const outputDiv = document.getElementById('output');
 
             if (response.ok) {
-                outputDiv.innerHTML = `<p>${result.message}</p><p>First two bytes (hex): ${result.bytes}</p>`;
+                const imgArrayBuffer = await response.arrayBuffer();  // 读取 ArrayBuffer 数据
+                outputDiv.innerHTML = `<p>Files processed successfully!</p>`;
                 
-                // 创建自动下载 output.img
-                const downloadLink = document.createElement('a');
-                downloadLink.href = result.outputImgPath;
-                downloadLink.download = 'output.img';
-                downloadLink.style.display = 'none';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
+                // 下载 ArrayBuffer 格式的图像
+                downloadImageFromArrayBuffer(imgArrayBuffer, 'output.img');
             } else {
-                outputDiv.innerHTML = `<p style="color: red;">${result.error}</p>`;
+                const result = await response.json();
+                outputDiv.innerHTML = `<p style="color: red;">${result.stack}</p>`;
             }
         });
 
@@ -70,6 +100,8 @@
                 reader.readAsDataURL(file);
             });
         }
+
+        
     </script>
 </body>
 </html>
