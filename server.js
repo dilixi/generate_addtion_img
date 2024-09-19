@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname)));
 
 // 路由：默认为 index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'index_bak.html'));
 });
 
 // 处理 YML 和 PNG 文件上传

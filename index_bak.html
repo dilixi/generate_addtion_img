@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='shortcut icon' type='image/x-icon' href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAH3SURBVDhPjZP7S1NhGMf3LwX+CdkMKSoI+rUSIvtBWRaE0XXMITq0WoRzyzRy67ataIFTN9O2HMHMbeRl6+w4z3bczrYE3aVJ39737cQu5wR+4MBze7/PeS+PBi2s3b6L1ORz2auTfDKG7zf6Za+OQiB08jQ2jYPMjvVdR1TXx+z44BC+nj3H7EaaBLZsE4j26iDYHUi/dSLtdCHjciP9xglh2oFoj47VNNIksLsawcKRNgSPHcduJIqf4RUE2rWoSnkE2ztYjtY0otgC99CMfS5JFocROKrFcucJFJdDLEZzrSgEtqxPwY/bmM1bbdh+Yf9rkxjNtaIQoKxevoKVC12QFpcg+fwIn7/IYmqoClSyWfx4ZEZu3oecdxaJkVEWU0NVYI/jkBh9gJx/gYjMIz5sImfAydlm1P9AkrBhGIDgeEmuz471+3pUC3k524xCoCLuYP3OPfCWccSHTEiYRpAcsyBGHlQpyctVdRQCVdK9nNpGpKeXvcLY1WvsAH8VizgoleSqOqpboOzFEygLafIJ2Ffp/I//ChwWjfDqNbIzXuQ/LSI3Owfx3Xuknk1B/OBBxulGIRBkcyGRPG+xMpvOB11TEUVo6IjS6ft2qZs9nt+1GqSlz+QWjMxfu3kLoVNnWDfR8xFfOjrBmR9jc8CIDb0BfwD8apdGwrf2kwAAAABJRU5ErkJggg==" />
+        <title>PandaTouch IMG</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif; 
+                color: #333;
+                max-width: 600px;
+                margin: 50px auto;
+                padding: 20px;
+                border-radius: 8px; 
+            }
+            h1 {
+                text-align: center;
+                font-size: 24px;
+            }
+            label {
+                margin-top: 20px;
+                display: block;
+            }
+            select, input[type="file"], button {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+                border: none;
+                transition: background-color 0.3s;
+                margin-top: 20px; /* 增加按钮与上方内容的距离 */
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            #preview {
+                margin-top: 20px;
+                display: none; /* 默认隐藏预览图 */
+                text-align: center;
+            }
+            #preview img {
+                max-width: 100%; /* 图片自适应宽度 */
+                height: auto;
+            }
+        </style>
+    </head>
+<body> 
+    <h1>Panda Touch IMG Generate</h1> 
+
+    <label for="imageInput">Select YML file</label>
+    <input type="file" id="ymlFile" accept=".yml">
+ 
+    <label for="newPandaInput">Select new_panda png file</label>
+    <input type="file" id="pngFile" accept="image/png">
+
+    <div id="preview">
+        <h2>预览图片:</h2>
+        <img id="previewImage" alt="PNG 预览">
+    </div>
+
+    <button id="submit">Generate</button>
+    <div id="output" style="margin-top: 20px;"></div> <!-- 新增展示输出结果的DIV -->
+
+    
+    <script>
+       // 将 img_buffer 转换为 Blob 并自动下载
+       function downloadImage(imgBufferBase64, fileName) {
+            // 将 img_bufferBase64 转换为 Blob 对象
+            const binaryString = atob(imgBufferBase64.split(",")[1]);  // 解码 Base64
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            const blob = new Blob([bytes], { type: 'application/octet-stream' });
+
+            // 创建一个隐藏的下载链接并点击它
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        // 将 ArrayBuffer 数据下载为文件
+        function downloadImageFromArrayBuffer(arrayBuffer, fileName) {
+            const blob = new Blob([arrayBuffer], { type: 'application/octet-stream' });
+
+            // 创建一个隐藏的下载链接并点击它
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        document.getElementById('submit').addEventListener('click', async () => {
+            const ymlFileInput = document.getElementById('ymlFile');
+            const pngFileInput = document.getElementById('pngFile');
+
+            if (ymlFileInput.files.length === 0 || pngFileInput.files.length === 0) 
+            {
+                alert('you need to update both new_panda and xx.yml file');
+                return;
+            }
+
+            const ymlFile = ymlFileInput.files[0];
+            const pngFile = pngFileInput.files[0];
+
+            // 将文件读取为 Base64
+            const ymlData = await readFileAsBase64(ymlFile);
+            const pngData = await readFileAsBase64(pngFile);
+
+            // 存储到 Local Storage
+            localStorage.setItem('ymlData', ymlData);
+            localStorage.setItem('pngData', pngData);
+
+            // 发送 Base64 数据到后端
+            const response = await fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ymlData: ymlData,
+                    pngData: pngData
+                })
+            });
+            const outputDiv = document.getElementById('output');
+
+            if (response.ok) {
+                const imgArrayBuffer = await response.arrayBuffer();  // 读取 ArrayBuffer 数据
+                outputDiv.innerHTML = `<p>generate succeed!!!</p>`;
+                
+                // 下载 ArrayBuffer 格式的图像
+                downloadImageFromArrayBuffer(imgArrayBuffer, 'output.img');
+            } else {
+                const result = await response.json();
+                outputDiv.innerHTML = `<p style="color: red;">${result.stack}</p>`;
+            }
+        });
+
+        function readFileAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        
+    </script>
+</body>
+</html>
