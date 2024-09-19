@@ -42,8 +42,7 @@ app.post('/generate', (req, res) => {
         if (!img_buffer) {
             throw new AppError('Failed to execute command: img_buffer is null', 500);
         }
-
-        console.log('img_buffer length:', img_buffer.byteLength);
+ 
         res.send(img_buffer);  // 直接发送 Buffer 数据
 
     } catch (error) {

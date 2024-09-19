@@ -1,15 +1,74 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <title>File Upload</title>
-</head>
-<body>
-    <h1>上传 YML 和 PNG 文件</h1>
-    <input type="file" id="ymlFile" accept=".yml" />
-    <input type="file" id="pngFile" accept=".png" />
-    <button id="submit">提交</button>
-    <div id="output"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image Converter</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f3f4f6;
+                color: #333;
+                max-width: 600px;
+                margin: 50px auto;
+                padding: 20px;
+                border-radius: 8px;
+                background-color: #e9d8fd;
+            }
+            h1 {
+                text-align: center;
+                font-size: 24px;
+            }
+            label {
+                margin-top: 20px;
+                display: block;
+            }
+            select, input[type="file"], button {
+                width: 100%;
+                padding: 10px;
+                margin-top: 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+                border: none;
+                transition: background-color 0.3s;
+                margin-top: 20px; /* 增加按钮与上方内容的距离 */
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            #preview {
+                margin-top: 20px;
+                display: none; /* 默认隐藏预览图 */
+                text-align: center;
+            }
+            #preview img {
+                max-width: 100%; /* 图片自适应宽度 */
+                height: auto;
+            }
+        </style>
+    </head>
+<body> 
+    <h1>Panda Touch IMG Generate</h1> 
+
+    <label for="imageInput">Select YML file</label>
+    <input type="file" id="ymlFile" accept=".yml">
+ 
+    <label for="newPandaInput">Select new_panda png file</label>
+    <input type="file" id="pngFile" accept="image/png">
+
+    <div id="preview">
+        <h2>预览图片:</h2>
+        <img id="previewImage" alt="PNG 预览">
+    </div>
+
+    <button id="submit">Generate</button>
+    <div id="output" style="margin-top: 20px;"></div> <!-- 新增展示输出结果的DIV -->
+
     
     <script>
        // 将 img_buffer 转换为 Blob 并自动下载
@@ -51,8 +110,9 @@
             const ymlFileInput = document.getElementById('ymlFile');
             const pngFileInput = document.getElementById('pngFile');
 
-            if (ymlFileInput.files.length === 0 || pngFileInput.files.length === 0) {
-                alert('请上传 YML 和 PNG 文件!');
+            if (ymlFileInput.files.length === 0 || pngFileInput.files.length === 0) 
+            {
+                alert('you need to update both new_panda and xx.yml file');
                 return;
             }
 
@@ -82,7 +142,7 @@
 
             if (response.ok) {
                 const imgArrayBuffer = await response.arrayBuffer();  // 读取 ArrayBuffer 数据
-                outputDiv.innerHTML = `<p>Files processed successfully!</p>`;
+                outputDiv.innerHTML = `<p>generate succeed!!!</p>`;
                 
                 // 下载 ArrayBuffer 格式的图像
                 downloadImageFromArrayBuffer(imgArrayBuffer, 'output.img');
