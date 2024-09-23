@@ -1,1 +1,12 @@
-YML sync failure with exception: [Errno 2] No such file or directory: 'PR_REPO/Translation'
+Working directory set to: PR_REPO/Translation
+Walking directory: /mnt/e/chenqiang/project/PandaTouch/output/tools/generate_addtion_img/PR_REPO/Translation
+Skipping current directory
+Walking directory: /mnt/e/chenqiang/project/PandaTouch/output/tools/generate_addtion_img/PR_REPO/Translation/de-DE
+Processing file: ./de-DE/de-DE.yml
+Walking directory: /mnt/e/chenqiang/project/PandaTouch/output/tools/generate_addtion_img/PR_REPO/Translation/en-US
+Processing file: ./en-US/en-US.yml
+Walking directory: /mnt/e/chenqiang/project/PandaTouch/output/tools/generate_addtion_img/PR_REPO/Translation/en-ZA
+Processing file: ./en-ZA/en-ZA.yml
+Walking directory: /mnt/e/chenqiang/project/PandaTouch/output/tools/generate_addtion_img/PR_REPO/Translation/es-ES
+Processing file: ./es-ES/es-ES.yml
+Synchronization complete.
