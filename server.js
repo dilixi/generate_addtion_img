@@ -32,13 +32,13 @@ app.post('/generate', (req, res) => {
         if (ymlData) {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
-            ymlBuffer = fs.readFileSync('en-GB.yml'); // 默认语言文件
+            ymlBuffer = fs.readFileSync(path.join(__dirname, 'en-GB.yml')); // 默认语言文件
         }
 
         if (pngData) {
             pngBuffer = Buffer.from(pngData.split(",")[1], 'base64');
         } else {
-            pngBuffer = fs.readFileSync('default_panda.png'); // 默认熊猫图片
+            pngBuffer = null;//fs.readFileSync(path.join(__dirname, 'default_panda.png')); // 默认熊猫图片
         }
 
         const img_buffer = cmd_compile.generate_img(ymlBuffer, pngBuffer);
