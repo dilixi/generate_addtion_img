@@ -71,9 +71,11 @@
 <body>
     <!-- 语言选择框 -->
     <select id="langSelector">
-        <option value="en">English</option>
-        <option value="zh" selected>中文</option>
-        <option value="de" selected>German</option>
+        <option value="en" selected>English</option>
+        <option value="zh">中文</option> 
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="es">Español</option>
     </select>
 
     <h1 id="title">Panda Touch IMG Generate</h1> 
@@ -129,6 +131,45 @@
                 missingYml: "您未上传语言YML文件，我们将使用默认语言包，是否继续？",
                 imageTooLarge: "图片尺寸超出限制：宽度 > 280px 或高度 > 360px",
                 note: "请注意：生成的img文件将配置默认的熊猫PNG，如您此前修改过该PNG，请在此项中再次上传以生成带有您个性化图片的img文件。"
+            },
+            de: {
+                title: "Panda Touch IMG erstellen",
+                ymlLabel: "Wählen Sie die YML-Datei aus",
+                pngLabel: "Wählen Sie die new_panda PNG-Datei aus",
+                previewTitle: "Bildvorschau",
+                generateButton: "Erstellen",
+                generateSuccess: "Erstellung erfolgreich!",
+                noFilesSelected: "Sie müssen mindestens eine YML- oder PNG-Datei auswählen",
+                missingPng: "Es wurde keine Panda-PNG-Datei hochgeladen. Wir verwenden den Standard-Panda. Möchten Sie fortfahren?",
+                missingYml: "Es wurde keine YML-Datei hochgeladen. Wir verwenden das Standard-Sprachpaket. Möchten Sie fortfahren?",
+                imageTooLarge: "Bild überschreitet die zulässigen Abmessungen: Breite > 280px oder Höhe > 360px",
+                note: "Bitte beachten Sie: Die generierte IMG-Datei wird mit dem Standard-Panda-PNG konfiguriert. Wenn Sie das Panda-Bild zuvor geändert haben, laden Sie es bitte hier erneut hoch, um eine IMG-Datei mit Ihrem personalisierten Bild zu erstellen."
+            },
+            ja: {
+                title: "パンダタッチIMG生成",
+                ymlLabel: "YMLファイルを選択",
+                pngLabel: "new_panda PNGファイルを選択",
+                previewTitle: "画像プレビュー",
+                generateButton: "生成",
+                generateSuccess: "生成に成功しました！",
+                noFilesSelected: "YMLファイルまたはPNGファイルのいずれかを選択する必要があります",
+                missingPng: "パンダのPNGファイルがアップロードされていません。デフォルトのパンダを使用します。続行しますか？",
+                missingYml: "YMLファイルがアップロードされていません。デフォルトの言語パックを使用します。続行しますか？",
+                imageTooLarge: "画像の寸法が許可されている寸法を超えています：幅 > 280px または 高さ > 360px",
+                note: "注意：生成されたIMGファイルはデフォルトのパンダPNGで構成されます。以前にパンダの画像を変更した場合は、ここで再度アップロードして、パーソナライズされた画像でIMGファイルを生成してください。"
+            },
+            es: {
+                title: "Generar IMG de Panda Touch",
+                ymlLabel: "Seleccionar archivo YML",
+                pngLabel: "Seleccionar archivo new_panda PNG",
+                previewTitle: "Vista previa de la imagen",
+                generateButton: "Generar",
+                generateSuccess: "¡Generación exitosa!",
+                noFilesSelected: "Debe seleccionar al menos un archivo YML o PNG",
+                missingPng: "No se ha subido ningún archivo PNG de panda. Utilizaremos el panda predeterminado. ¿Desea continuar?",
+                missingYml: "No se ha subido ningún archivo YML. Utilizaremos el paquete de idioma predeterminado. ¿Desea continuar?",
+                imageTooLarge: "La imagen supera las dimensiones permitidas: Ancho > 280px o Altura > 360px",
+                note: "Tenga en cuenta: El archivo IMG generado se configurará con el PNG de panda predeterminado. Si ha modificado la imagen de panda antes, cárguela nuevamente aquí para generar un archivo IMG con su imagen personalizada."
             }
         };
 
