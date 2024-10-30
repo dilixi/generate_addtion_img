@@ -101,6 +101,7 @@
     </p>
 
     <button id="submit">Generate</button>
+    <button id="submit_fat">Generate fat</button>
     <div id="output" style="margin-top: 20px;"></div>
 
     <script>
@@ -113,6 +114,7 @@
                 pngLabel: "Select new_panda png file",
                 previewTitle: "Preview Image",
                 generateButton: "Generate",
+                generateButton_fat: "Generate fat",
                 generateSuccess: "Generate succeeded!",
                 noFilesSelected: "You need to select at least one YML or PNG file",
                 missingPng: "No panda PNG file uploaded, we will use the default panda. Do you want to continue?",
@@ -126,6 +128,7 @@
                 pngLabel: "选择new_panda PNG文件",
                 previewTitle: "预览图片",
                 generateButton: "生成",
+                generateButton_fat: "生成 fat",
                 generateSuccess: "生成成功！",
                 noFilesSelected: "您需要至少选择一个YML文件或PNG文件",
                 missingPng: "您未上传熊猫PNG文件，我们将为您生成带有默认熊猫的文件，是否继续？",
@@ -139,6 +142,7 @@
                 pngLabel: "Wählen Sie die new_panda PNG-Datei aus",
                 previewTitle: "Bildvorschau",
                 generateButton: "Erstellen",
+                generateButton_fat: "Erstellen fat",
                 generateSuccess: "Erstellung erfolgreich!",
                 noFilesSelected: "Sie müssen mindestens eine YML- oder PNG-Datei auswählen",
                 missingPng: "Es wurde keine Panda-PNG-Datei hochgeladen. Wir verwenden den Standard-Panda. Möchten Sie fortfahren?",
@@ -152,6 +156,7 @@
                 pngLabel: "new_panda PNGファイルを選択",
                 previewTitle: "画像プレビュー",
                 generateButton: "生成",
+                generateButton_fat: "生成 fat",
                 generateSuccess: "生成に成功しました！",
                 noFilesSelected: "YMLファイルまたはPNGファイルのいずれかを選択する必要があります",
                 missingPng: "パンダのPNGファイルがアップロードされていません。デフォルトのパンダを使用します。続行しますか？",
@@ -165,6 +170,7 @@
                 pngLabel: "Seleccionar archivo new_panda PNG",
                 previewTitle: "Vista previa de la imagen",
                 generateButton: "Generar",
+                generateButton_fat: "Generar fat",
                 generateSuccess: "¡Generación exitosa!",
                 noFilesSelected: "Debe seleccionar al menos un archivo YML o PNG",
                 missingPng: "No se ha subido ningún archivo PNG de panda. Utilizaremos el panda predeterminado. ¿Desea continuar?",
@@ -181,6 +187,7 @@
             document.getElementById('pngLabel').innerText = translations[selectedLang].pngLabel;
             document.getElementById('previewTitle').innerText = translations[selectedLang].previewTitle;
             document.getElementById('submit').innerText = translations[selectedLang].generateButton;
+            document.getElementById('submit_fat').innerText = translations[selectedLang].generateButton_fat;
             document.getElementById('note').innerText = translations[selectedLang].note;
         }
 
@@ -227,7 +234,64 @@
         });
 
         // 生成按钮点击事件
-        document.getElementById('submit').addEventListener('click', async () => {
+        document.getElementById('submit_fat').addEventListener('click', async () => {
+            const ymlFileInput = document.getElementById('ymlFile');
+            const pngFileInput = document.getElementById('pngFile');
+
+            let proceed = true;
+            const selectedLang = langSelector.value;
+            const langText = translations[selectedLang];
+            let file_name = 'fat.img';
+
+            // 如果没有选择任何文件，提示用户选择文件
+            if (ymlFileInput.files.length === 0 && pngFileInput.files.length === 0) {
+                alert(langText.noFilesSelected);
+                return;
+            }
+
+            // 如果只选择了YML文件，提示用户
+            if (ymlFileInput.files.length > 0 && pngFileInput.files.length === 0) {
+                proceed = confirm(langText.missingPng);
+                file_name = 'fat_default_panda.img';
+            } else if (pngFileInput.files.length > 0 && ymlFileInput.files.length === 0) {
+                proceed = confirm(langText.missingYml);
+                file_name = 'fat_default_yml.img';
+            }
+
+            if (!proceed) {
+                return;
+            }
+
+            const ymlFile = ymlFileInput.files[0] || null;
+            const pngFile = pngFileInput.files[0] || null;
+
+            const ymlData = ymlFile ? await readFileAsBase64(ymlFile) : null;
+            const pngData = pngFile ? await readFileAsBase64(pngFile) : null;
+
+            const response = await fetch('/generate_fat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ymlData: ymlData,
+                    pngData: pngData
+                })
+            });
+
+            const outputDiv = document.getElementById('output');
+            if (response.ok) {
+                const imgArrayBuffer = await response.arrayBuffer();
+                outputDiv.innerHTML = `<p>${langText.generateSuccess}</p>`;
+                downloadImageFromArrayBuffer(imgArrayBuffer, file_name);
+            } else {
+                const result = await response.json();
+                outputDiv.innerHTML = `<p style="color: red;">${result.stack}</p>`;
+            }
+        });
+
+                // 生成按钮点击事件
+            document.getElementById('submit').addEventListener('click', async () => {
             const ymlFileInput = document.getElementById('ymlFile');
             const pngFileInput = document.getElementById('pngFile');
 
