@@ -299,7 +299,7 @@
             let proceed = true;
             const selectedLang = langSelector.value;
             const langText = translations[selectedLang];
-            let file_name = 'addtion.img';
+            let file_name = 'addition.img';
 
             // 如果没有选择任何文件，提示用户选择文件
             if (ymlFileInput.files.length === 0 && pngFileInput.files.length === 0) {
@@ -310,10 +310,10 @@
             // 如果只选择了YML文件，提示用户
             if (ymlFileInput.files.length > 0 && pngFileInput.files.length === 0) {
                 proceed = confirm(langText.missingPng);
-                file_name = 'addtion_default_panda.img';
+                file_name = 'addition_default_panda.img';
             } else if (pngFileInput.files.length > 0 && ymlFileInput.files.length === 0) {
                 proceed = confirm(langText.missingYml);
-                file_name = 'addtion_default_yml.img';
+                file_name = 'addition_default_yml.img';
             }
 
             if (!proceed) {
