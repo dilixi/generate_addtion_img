@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/firmware_info.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'firmware/firmware_info.json'));
+});
+
 app.post('/generate', (req, res) => {
     const { ymlData, pngData } = req.body;
     let ymlBuffer;
