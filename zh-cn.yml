@@ -2,11 +2,13 @@ zh-cn:
 #SETTING PAGE
   lang_name_t: '中文'
 
-  sleep_time_t_2: '2分'
-  sleep_time_t_5: '5分'
-  sleep_time_t_10: '10分'
-  sleep_time_t_15: '15分'
-  sleep_time_t_60: '60分'
+  min_time_t_1: '1分'
+  min_time_t_2: '2分'
+  min_time_t_3: '3分'
+  min_time_t_5: '5分'
+  min_time_t_10: '10分'
+  min_time_t_15: '15分'
+  min_time_t_60: '60分'
   sleep_time_t_always: '始终开启'
 
   setting_gen_t: '通用'
@@ -58,6 +60,9 @@ zh-cn:
   btn_goto_wifi: '转到Wi-Fi页面'
   btn_ignore: '忽略'
   btn_goto_login: '转到登录页面'
+  btn_dry: '烘干'
+  btn_dry_prepare: '准备'
+  btn_dry_start: '开始烘干'
 #BUTTONS END
 
   set_net_wifi_scaned: '可用 WiFi'
@@ -315,6 +320,7 @@ zh-cn:
 
   00x12FF200000020007: '检查工具头耗材位置失败，请点击获取更多帮助。'
   00x1200200000020006: '挤出AMS%s 槽位%s 的耗材失败，可能是挤出机堵塞，或者是耗材过细，导致挤出机打滑。'
+  00x1200200000030002: 'AMS%s 料槽%s 料线用完并已自动切换到有相同料线的料槽。'
 #NOTIFY END
 
 #CONTROL
@@ -437,7 +443,7 @@ zh-cn:
   #tip_input_password: '请输入密码'
   t_region: '区域：'
   t_account: '账号：'
-  t_password: '密码：'
+  t_password: '验证码：'
   t_region_china: '中国'
   t_region_global: '全球'
   tip_phone_incorrect: '请输入有效的手机号' 
@@ -454,7 +460,7 @@ zh-cn:
   tip_account_sync_zero: '当前帐户中没有云打印机。请将打印机添加到此帐户，然后再次登录。'
   tip_printer_without_cloud: '此打印机尚未绑定到该账号。在启用云之前，请使用BambuLab Studio或Handy添加打印机。'
   tip_printer_login_account: '请先登录一个账号。'
-  tip_account_error: '您的帐户出现问题。请检查您的帐户名或密码是否有任何更改。此外，请验证您的帐户区域是否与当前位置匹配。'
+  tip_account_error: '您的帐户出现问题。请检查您的帐户名否有任何更改。此外，请验证您的帐户区域是否与当前位置匹配。'
   tip_account_network_error: '您的网络连接出现问题。请检查网络密码是否已更改，然后尝试重新连接以恢复打印机的云连接。'
   t_login_bambu: '登录拓竹账号'
   tip_convert_to_cloud: '正在将此账号下的打印机转换为云模式。请稍候。'
@@ -539,4 +545,21 @@ zh-cn:
   t_pwr_has_been_bind: '此PWR已被打印机 %s 绑定,请先解除绑定后再进行该操作。'
   tip_pwr_max: 'Panda Touch 目前最多支持连接 %d 台 Panda PWR。'
   t_power_off_after_printing: '自动断电'
+  tip_change_reboot: '为了更好的速度体验，需重启后才会生效，是否要继续？' 
+  t_multi_print_heat_delay: '多台打印加热延迟'
+  t_file_t_history: '打印历史'
+  t_history_cost_time: '所需时间'
+  t_history_weight: '重量'
+  t_history_only_cloud: '仅支持云模式'
+  t_history_not_find: '未找到'
+  t_default_directory: 'Printer-默认文件夹' 
+  t_reboot_take_effect: '该设置需要重启后生效，是否要继续？' 
+  t_send_code: '发送验证码' 
+  tip_send_code: '输入验证码'  
+  tip_error_code_length: '验证码应该是6位' 
+  tip_error_code: '验证码不存在或已过期 请发送一个新的验证码' 
+  tip_error_send_code: '发送验证码失败，请检查网络' 
+  tip_loading_thumbnail: '正在加载数据，请稍后'  
+  t_sd_enhanced_load_thumbnails: '加强从SD卡显示缩略图'
+  tip_enhanced_load_effect: '在SD卡面板操作或者从U盘发起打印会有比较长时间的延时，并且重启后生效，是否继续？' 
 #NEW ADD END 

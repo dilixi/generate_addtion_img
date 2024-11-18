@@ -560,5 +560,7 @@
   tip_error_code_length: 'コードの長さは6桁である必要があります'
   tip_error_code: 'コードが存在しないか期限切れです。新しい認証コードを再取得してください。'
   tip_error_send_code: 'コードの送信に失敗しました。インターネット接続を確認してください。'
-  tip_loading_thumbnail: 'Communication with printer is busy now. Please wait a second.' 
+  tip_loading_thumbnail: 'Loading data from printer. Please wait a second.' 
+  t_sd_enhanced_load_thumbnails: 'Enhanced thumbnail display'  
+  tip_enhanced_load_effect: 'start printing from USB stick or click sd-card panel will cause a long delay and it will takes effect after reboot, continue?' 
 #NEW ADD END
