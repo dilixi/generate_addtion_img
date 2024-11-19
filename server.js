@@ -37,7 +37,7 @@ app.post('/generate', (req, res) => {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
             ymlBuffer = fs.readFileSync(path.join(__dirname, default_lang+'.yml')); // 默认语言文件
-            console.log("use  default ymlBuffer="+ymlBuffer);
+            //console.log("use  default ymlBuffer="+ymlBuffer);
         }
 
         if (pngData) {
@@ -71,7 +71,7 @@ app.post('/generate_fat', (req, res) => {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
             ymlBuffer = fs.readFileSync(path.join(__dirname, default_lang+'.yml')); // 默认语言文件
-            console.log("use  default ymlBuffer="+ymlBuffer);
+            //console.log("use  default ymlBuffer="+ymlBuffer);
         }
          
         if (pngData) {
