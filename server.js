@@ -36,7 +36,7 @@ app.post('/generate', (req, res) => {
         if (ymlData) {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
-            ymlBuffer = fs.readFileSync(path.join(__dirname, default_lang+'.yml')); // 默认语言文件
+            ymlBuffer = fs.readFileSync(path.join(__dirname, "translations/"+default_lang+'.yml')); // 默认语言文件
             //console.log("use  default ymlBuffer="+ymlBuffer);
         }
 
@@ -70,7 +70,7 @@ app.post('/generate_fat', (req, res) => {
         if (ymlData) {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
-            ymlBuffer = fs.readFileSync(path.join(__dirname, default_lang+'.yml')); // 默认语言文件
+            ymlBuffer = fs.readFileSync(path.join(__dirname, "translations/"+ default_lang+'.yml')); // 默认语言文件
             //console.log("use  default ymlBuffer="+ymlBuffer);
         }
          
