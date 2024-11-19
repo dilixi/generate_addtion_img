@@ -242,7 +242,7 @@
             let proceed = true;
             const selectedLang = langSelector.value;
             const langText = translations[selectedLang];
-            let file_name = 'fat.img';
+            let file_name = 'fat_';
             
             console.log("submit_fat selectedLang="+selectedLang);
 
@@ -256,11 +256,11 @@
             if (ymlFileInput.files.length > 0 && pngFileInput.files.length === 0) {
                 proceed = confirm(langText.missingPng);
                 /*选择了YML 但是没有选择PNG则使用默认的 panda*/
-                file_name = 'fat_default'+'_panda.img';
+                file_name = file_name + '_default'+'_panda.img';
             } else if (pngFileInput.files.length > 0 && ymlFileInput.files.length === 0) {
                 proceed = confirm(langText.missingYml);
                 /*选择了PNG 但是没有选择yml则使用默认的yml*/
-                file_name = 'fat_default_'+selectedLang+'.img';
+                file_name = file_name+'_default_'+selectedLang+'.img';
             }
 
             if (!proceed) {
@@ -304,7 +304,7 @@
             let proceed = true;
             const selectedLang = langSelector.value;
             const langText = translations[selectedLang];
-            let file_name = 'addition.img';
+            let file_name = 'addition_';
 
             console.log("submit selectedLang="+selectedLang);
 
@@ -317,10 +317,10 @@
             // 如果只选择了YML文件，提示用户
             if (ymlFileInput.files.length > 0 && pngFileInput.files.length === 0) {
                 proceed = confirm(langText.missingPng); 
-                file_name = 'fat_default'+'_panda.img';
+                file_name = file_name + '_panda.img';
             } else if (pngFileInput.files.length > 0 && ymlFileInput.files.length === 0) {
                 proceed = confirm(langText.missingYml); 
-                file_name = 'fat_default_'+selectedLang+'.img';
+                file_name = file_name +selectedLang+'.img';
             }
 
             if (!proceed) {
