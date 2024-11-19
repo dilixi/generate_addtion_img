@@ -108,7 +108,7 @@ es-ES:
   filament_unknown: 'Se desconoce el tipo de filamento, pero es necesario para realizar esta acción. ¿Desea editar la información del filamento?'
   printer_add_repeat: 'Esta impresora ya ha sido añadida al Panda Touch y no puede ser añadida de nuevo'
   printer_has_add: 'Ya añadida'
-  printer_busy: |2
+  printer_busy: |
 
 
     Impresora ocupada

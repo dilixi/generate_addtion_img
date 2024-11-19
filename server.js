@@ -15,7 +15,7 @@ class AppError extends Error {
     }
 }
 
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '30mb' }));
 
 app.use(express.static(path.join(__dirname)));
 
@@ -28,7 +28,7 @@ app.get('/firmware_info.json', (req, res) => {
 });
 
 app.post('/generate', (req, res) => {
-    const { ymlData, pngData } = req.body;
+    const {default_lang, ymlData, pngData } = req.body;
     let ymlBuffer;
     let pngBuffer;
  
@@ -36,7 +36,8 @@ app.post('/generate', (req, res) => {
         if (ymlData) {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
-            ymlBuffer = fs.readFileSync(path.join(__dirname, 'en-GB.yml')); // 默认语言文件
+            ymlBuffer = fs.readFileSync(path.join(__dirname, default_lang+'.yml')); // 默认语言文件
+            console.log("use  default ymlBuffer="+ymlBuffer);
         }
 
         if (pngData) {
@@ -61,7 +62,7 @@ app.post('/generate', (req, res) => {
 });
 
 app.post('/generate_fat', (req, res) => {
-    const { ymlData, pngData } = req.body;
+    const {default_lang, ymlData, pngData } = req.body;
     let ymlBuffer;
     let pngBuffer;
  
@@ -69,9 +70,10 @@ app.post('/generate_fat', (req, res) => {
         if (ymlData) {
             ymlBuffer = Buffer.from(ymlData.split(",")[1], 'base64');
         } else {
-            ymlBuffer = fs.readFileSync(path.join(__dirname, 'en-GB.yml')); // 默认语言文件
+            ymlBuffer = fs.readFileSync(path.join(__dirname, default_lang+'.yml')); // 默认语言文件
+            console.log("use  default ymlBuffer="+ymlBuffer);
         }
-
+         
         if (pngData) {
             pngBuffer = Buffer.from(pngData.split(",")[1], 'base64');
         } else {
