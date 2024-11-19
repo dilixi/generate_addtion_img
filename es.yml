@@ -535,7 +535,7 @@ es-ES:
   tip_change_reboot: 'Para una mejor experiencia de velocidad, se requiere un reinicio para que tenga efecto. ¿Continuar?'
   t_multi_print_heat_delay: 'Retraso térmico para la impresión múltiple'
   t_file_t_history: 'Historial de impresión'
-  t_history_cost_time: 'Duración de la impresión'
+  t_history_cost_time: 'Coste tiempo'
   t_history_weight: 'Peso'
   t_history_only_cloud: 'Sólo soportado en la modalidad "nube"'
   t_history_not_find: 'No encontrado'
