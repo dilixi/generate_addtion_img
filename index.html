@@ -262,6 +262,10 @@
                 /*选择了PNG 但是没有选择yml则使用默认的yml*/
                 file_name = file_name+'default_'+selectedLang+'.img';
             }
+            else
+            {
+                file_name = file_name+selectedLang+'.img';
+            }
 
             if (!proceed) {
                 return;
